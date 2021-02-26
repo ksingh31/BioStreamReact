@@ -1,0 +1,14 @@
+{
+    "client_id" : "7f30ed1a-db88-42c8-91df-b15f915d0386",
+    "authorization_user_agent" : "DEFAULT",
+    "redirect_uri" : "msauth://com.biostreamreact/ga0RGNYHvNM5d0SLGQfpQWAPGJ8%3D",
+    "broker_redirect_uri_registered": false,
+    "account_mode": "MULTIPLE",
+    "authorities" : [
+      {
+        "type": "B2C",
+        "authority_url": "https://biostreamdiagnostics.b2clogin.com/tfp/biostreamdiagnostics.onmicrosoft.com/B2C_1_SignUp_SignIn/",
+        "default": true
+      }
+    ]
+  }
