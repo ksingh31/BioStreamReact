@@ -12,4 +12,4 @@ export const b2cConfig: B2CConfiguration = {
   cache: { cacheLocation: 'localStorage' },
 };
 
-export const b2cScopes = ['offline_access'];
+export const b2cScopes = ['https://biostreamdiagnostics.onmicrosoft.com/api/demo.read'];

@@ -1,24 +1,9 @@
 {
     "configurations": [
-        
         {
-            "name": "Debug Android",
-            "request": "launch",
-            "type": "reactnative",
-            "cwd": "${workspaceFolder}",
-            "platform": "android"
-        },
-        {
-            "name": "Debug Android Hermes - Experimental",
-            "request": "launch",
-            "type": "reactnativedirect",
-            "cwd": "${workspaceFolder}",
-            "platform": "android"
-        },
-        {
-            "name": "Attach to packager",
+            "name": "Attach to Hermes application - Experimental",
             "request": "attach",
-            "type": "reactnative",
+            "type": "reactnativedirect",
             "cwd": "${workspaceFolder}"
         },
         {
@@ -26,6 +11,13 @@
             "request": "attach",
             "type": "reactnativedirect",
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Debug Android Hermes - Experimental",
+            "request": "launch",
+            "type": "reactnativedirect",
+            "cwd": "${workspaceFolder}",
+            "platform": "android"
         }
     ]
 }

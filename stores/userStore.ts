@@ -28,7 +28,7 @@ class UserStore {
     }
 
     updateTitle = () => {
-        this.title = this.title + '!'
+        this.title = this.title + '!';
     }
 }
 

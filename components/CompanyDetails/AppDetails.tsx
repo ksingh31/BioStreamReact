@@ -5,6 +5,12 @@ import userStore from '../../stores/userStore';
 import { styles } from './styles';
 
 function AppDetails() {
+    return(
+        <AppDetailsView />
+    );
+}
+
+const AppDetailsView = observer(() => {
     return (
         <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>
@@ -15,6 +21,6 @@ function AppDetails() {
             </Text>
         </View>
     )
-}
+});
 
 export default observer(AppDetails)

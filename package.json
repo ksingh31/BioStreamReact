@@ -26,6 +26,7 @@
     "mobx-react-lite": "^3.2.0",
     "pod-install": "^0.1.18",
     "react": "16.13.1",
+    "react-devtools": "^4.10.1",
     "react-native": "0.63.4",
     "react-native-check-version": "^1.0.8",
     "react-native-eject": "^0.1.2",

@@ -11,6 +11,12 @@ import { observer } from 'mobx-react';
 import userStore from '../../../stores/userStore';
 
 function Info() {
+  return (
+    <InfoView />
+  )
+}
+
+const InfoView = observer(() => {
   const navigation = useNavigation();
   return (
     <>
@@ -42,6 +48,6 @@ function Info() {
       </SafeAreaView>
     </>
   );
-};
+});
 
 export default observer(Info)

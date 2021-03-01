@@ -34,18 +34,26 @@ const { Navigator, Screen } = createStackNavigator();
 const b2cClient = new B2CClient(b2cConfig);
 
 function App() {
+  return (
+    <AppController />
+  );
+}
+
+function AppController() {
   const [authResult, setAuthResult] = React.useState<MSALResult | null>(null);
   const [iosEphemeralSession, setIosEphemeralSession] = React.useState(false);
   const webviewParameters: MSALWebviewParams = {
     ios_prefersEphemeralWebBrowserSession: iosEphemeralSession,
   };
-  console.warn(scopes);
 
   React.useEffect(() => {
     async function init() {
       const isSignedIn = await b2cClient.isSignedIn();
       if (isSignedIn) {
         setAuthResult(await b2cClient.acquireTokenSilent({ scopes }));
+      }
+      else {
+        handleSignInPress();
       }
     }
     init();
@@ -78,20 +86,36 @@ function App() {
     }
   };
 
+  const constiosEphemeralSession  = () => {
+    setIosEphemeralSession(!iosEphemeralSession)
+  }
+
+  return <AppView handleAcquireTokenPress = { handleAcquireTokenPress } constiosEphemeralSession = { constiosEphemeralSession } iosEphemeralSession = { iosEphemeralSession } authResult={authResult} handleSignInPress={handleSignInPress} handleSignoutPress={handleSignoutPress} />
+}
+
+const AppView = observer((props: any) => {
   return (
-    <SafeAreaView>
-      <View>
-      {authResult ? (
+    <>
+      {props.authResult ? (
           <>
-            <TouchableOpacity style={styles.button} onPress={handleAcquireTokenPress}>
+            <Provider userStore={userStore}>
+              <NavigationContainer>
+                <Navigator>
+                  <Screen name="Home" component={ Info } options={({ route }) => ({ title: route.name })} />
+                  <Screen name="Details" component={ AppDetails } options={({ route }) => ({ title: route.name })} />
+                  <Screen name="userDetails" component={ UserDetails } options={({ route }) => ({ title: route.name })} />
+                </Navigator>
+              </NavigationContainer>
+            </Provider>
+            {/* <TouchableOpacity style={styles.button} onPress={handleAcquireTokenPress}>
               <Text>Acquire Token (Silent)</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleSignoutPress}>
+            </TouchableOpacity> */}
+            <TouchableOpacity style={styles.button} onPress={props.handleSignoutPress}>
               <Text>Sign Out</Text>
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
+          <TouchableOpacity style={styles.button} onPress={props.handleSignInPress}>
             <Text>Sign In</Text>
           </TouchableOpacity>
         )}
@@ -99,19 +123,15 @@ function App() {
         {Platform.OS === 'ios' ? (
           <TouchableOpacity
             style={[styles.button, styles.switchButton]}
-            onPress={() => setIosEphemeralSession(!iosEphemeralSession)}
+            onPress={props.handleIosEphemeralSession }
           >
             <Text>Prefer ephemeral browser session (iOS only)</Text>
-            <Switch value={iosEphemeralSession} onValueChange={setIosEphemeralSession} />
+            <Switch value={props.iosEphemeralSession} onValueChange={props.setIosEphemeralSession} />
           </TouchableOpacity>
         ) : null}
-      </View>
-      <ScrollView>
-        <Text>{JSON.stringify(authResult, null, 2)}</Text>
-      </ScrollView>
-      </SafeAreaView>
+      </>
   );
-}
+});
 
 export default observer(App);
 
@@ -127,7 +147,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'aliceblue',
     borderWidth: 1,
-    margin: '0.5%',
+    margin: '5%',
     padding: 8,
     width: '49%',
     justifyContent: 'center',
